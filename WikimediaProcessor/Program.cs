@@ -68,7 +68,7 @@ namespace WikimediaProcessor
 
         private static async Task RunProcessor(int option)
         {
-            // DI in .NET Core in console app needs to handle its own scopes
+            //TODO: DI in .NET Core in console app needs to handle its own scopes
             var builder = CreateHostBuilder(Array.Empty<string>());
             using var host = builder.Build();
             using var scope = host.Services.CreateScope();

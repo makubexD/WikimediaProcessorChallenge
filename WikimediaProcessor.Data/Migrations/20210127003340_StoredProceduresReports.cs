@@ -7,6 +7,8 @@ namespace WikimediaProcessor.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            Down(migrationBuilder);
+
             var sql1 = MigrationHelper.GetSqlFromEmbeddedStoredProcedure("20210126-sp-language-domain-report.sql");
             migrationBuilder.Sql($"EXEC('{sql1}')");
 
