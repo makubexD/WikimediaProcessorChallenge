@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WikimediaProcessor.Data", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WikimediaProcessor.Tests", "WikimediaProcessor.Tests\WikimediaProcessor.Tests.csproj", "{2AB70178-9E66-41B1-8484-07392517D191}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikimediaProcessor.Services", "WikimediaProcessor.Services\WikimediaProcessor.Services.csproj", "{F9DF9668-93A0-418D-8129-BAC45B845C4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WikimediaProcessor.Services", "WikimediaProcessor.Services\WikimediaProcessor.Services.csproj", "{F9DF9668-93A0-418D-8129-BAC45B845C4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

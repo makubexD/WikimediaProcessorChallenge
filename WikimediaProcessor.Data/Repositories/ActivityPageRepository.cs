@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,27 @@ namespace WikimediaProcessor.Data.Repositories
         public ActivityPageRepository(IDbContextFactory<WikimediaContext> contextFactory)
         {
             this.contextFactory = contextFactory;
+        }
+
+        public PageAll GetAllPages(DateTime activityDate, string[] parts, string domain, string language)
+        {
+            var domainCode = parts.ElementAtOrDefault(0);
+            var pageName = parts.ElementAtOrDefault(1);
+            var viewCount = parts.ElementAtOrDefault(2);
+            
+            _ = int.TryParse(viewCount, out var count);
+
+            var page = new PageAll
+            {                
+                Domain = domain,
+                DomainCode = domainCode,
+                Language = language,
+                Name = pageName,
+                PageDate = activityDate,
+                ViewCount = count
+            };
+
+            return page;
         }
 
         public async Task SaveActivityPageAsync(DateTime activityDate, string[] parts, string domain, string language)

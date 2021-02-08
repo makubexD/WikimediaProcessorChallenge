@@ -17,8 +17,10 @@ namespace WikimediaProcessor
     {
         public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
+            string conex = context.Configuration.GetConnectionString("DefaultConnection");
+
             services.AddDbContextFactory<WikimediaContext>(options =>
-                options.UseSqlServer(context.Configuration.GetConnectionString("DefaultConnection"),
+                options.UseSqlServer(conex,
                 oa => oa.EnableRetryOnFailure().CommandTimeout(180)));
 
             services.AddHttpClient<IPageViewsDownloader, PageViewsDownloader>(client =>
@@ -27,7 +29,8 @@ namespace WikimediaProcessor
             services.AddScoped<IWikimediaProcessor, Services.Processors.WikimediaProcessor>();
             services.AddScoped<IPageViewsReader, PageViewsReader>();
             services.AddScoped<IDomainCodeReader, DomainCodeReader>();
-            services.AddScoped<IActivityPageRepository, ActivityPageRepository>();
+            services.AddScoped<IActivityPageRepository, ActivityPageRepository>();            
+            services.AddTransient<IPageAllRepository>(d => new PageAllRepository(conex));
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<ICsvReporter, CsvReporter>();
             services.AddScoped<IReportRunner, ReportRunner>();

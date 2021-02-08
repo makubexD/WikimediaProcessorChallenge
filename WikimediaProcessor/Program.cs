@@ -33,7 +33,7 @@ namespace WikimediaProcessor
                         options.SingleLine = true;
                         options.TimestampFormat = "hh:mm:ss ";
                     });
-                })
+                })            
                 .UseConsoleLifetime();
 
         private static async Task ShowOptions()
@@ -81,7 +81,8 @@ namespace WikimediaProcessor
                     break;
                 case 2:
                     var reporter = scope.ServiceProvider.GetService<IReportRunner>();
-                    reporter.Run();
+                    //reporter.Run();
+                    reporter.RunFromFile();
                     break;
             }
         }

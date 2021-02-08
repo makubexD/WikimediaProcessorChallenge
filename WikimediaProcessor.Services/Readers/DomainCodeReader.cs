@@ -17,6 +17,9 @@ namespace WikimediaProcessor.Services.Readers
 
         public (string, string) GetDomainAndLanguage(string domainCode)
         {
+            const string languageNotDefined = "LanguageNotDefined";
+            const string domainNotDefined = "DomainNotDefined";
+
             var lastIndex = domainCode.LastIndexOf(".");
             if (lastIndex == -1)
             {
@@ -34,7 +37,7 @@ namespace WikimediaProcessor.Services.Readers
                     if (domainTrailingPart == ".wikimedia.org" && !string.IsNullOrEmpty(wikimediaDomain))
                     {
                         // This means this is a wikimedia.org domain with no language associated
-                        return (wikimediaDomain, null);
+                        return (wikimediaDomain, languageNotDefined);
                     }
                     else if (domainTrailingPart != ".wikimedia.org" && string.IsNullOrEmpty(wikimediaDomain))
                     {
@@ -47,8 +50,23 @@ namespace WikimediaProcessor.Services.Readers
                         return ($"{domainCode}.wikipedia.org", left);
                     }
                 }
+                else
+                {
+                    var elements = domainCode.Split(".");
+
+                    if (elements.Length > 2) {
+                        var secondElement = elements.ElementAt(1);
+
+                        var mobileCode = $".{secondElement.ElementAt(2)}";
+
+                        if (WikimediaDatabases.ContainsKey(mobileCode)) 
+                        {
+                            return (WikimediaDatabases[mobileCode] , $"{secondElement.ElementAt(0)}.");
+                        }
+                    }                    
+                }
             }
-            return (null, null);
+            return (domainNotDefined, languageNotDefined);            
         }
 
         private static List<string> LoadWikimediaOrgDomains() =>
